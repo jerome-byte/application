@@ -4,7 +4,7 @@ import '../controllers/auth_controller.dart';
 import 'home_page.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+  const SignupPage({super.key});
 
   @override
   State<SignupPage> createState() => _SignupPageState();
@@ -27,6 +27,7 @@ class _SignupPageState extends State<SignupPage> {
       _password.text,
     );
     setState(() => _loading = false);
+    if (!mounted) return;
     if (ok) {
       Navigator.of(
         context,

@@ -4,7 +4,7 @@ import '../controllers/wallet_controller.dart';
 import '../widgets/transaction_card.dart';
 
 class TransactionsPage extends StatelessWidget {
-  const TransactionsPage({Key? key}) : super(key: key);
+  const TransactionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletCard extends StatefulWidget {
-  const WalletCard({Key? key}) : super(key: key);
+  const WalletCard({super.key});
 
   @override
   State<WalletCard> createState() => _WalletCardState();
@@ -40,22 +40,32 @@ class _WalletCardState extends State<WalletCard>
         ],
       ),
     );
-    if (result != null && result > 0) {
-      if (isDeposit) {
-        wallet.deposit(result);
-        _animatePulse();
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Dépôt effectué')));
-      } else {
-        final ok = wallet.withdraw(result);
-        if (ok) _animatePulse();
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(ok ? 'Retrait effectué' : 'Solde insuffisant'),
-          ),
-        );
+    // If the widget was disposed while the dialog was open, update state but avoid using BuildContext.
+    if (!mounted) {
+      if (result != null && result > 0) {
+        if (isDeposit) {
+          wallet.deposit(result);
+        } else {
+          wallet.withdraw(result);
+        }
       }
+      return;
+    }
+
+    if (result == null || result <= 0) return;
+
+    if (isDeposit) {
+      wallet.deposit(result);
+      _animatePulse();
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(const SnackBar(content: Text('Dépôt effectué')));
+    } else {
+      final ok = wallet.withdraw(result);
+      if (ok) _animatePulse();
+      final messenger = ScaffoldMessenger.of(context);
+      messenger.showSnackBar(
+        SnackBar(content: Text(ok ? 'Retrait effectué' : 'Solde insuffisant')),
+      );
     }
   }
 
@@ -74,7 +84,7 @@ class _WalletCardState extends State<WalletCard>
       duration: const Duration(milliseconds: 300),
       scale: _pulsing ? 1.02 : 1.0,
       child: Card(
-        color: color.withOpacity(0.06),
+        color: color.withAlpha((0.06 * 255).round()),
         elevation: 4,
         margin: const EdgeInsets.all(16),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

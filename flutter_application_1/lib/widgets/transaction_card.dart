@@ -3,8 +3,7 @@ import '../models/transaction.dart';
 
 class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
-  const TransactionCard({Key? key, required this.transaction})
-    : super(key: key);
+  const TransactionCard({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class TransactionCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: color.withOpacity(0.1),
+          backgroundColor: color.withAlpha((0.1 * 255).round()),
           child: Icon(
             transaction.type == 'Deposit'
                 ? Icons.arrow_downward
@@ -22,8 +21,8 @@ class TransactionCard extends StatelessWidget {
             color: color,
           ),
         ),
-        title: Text('${transaction.type}'),
-        subtitle: Text('${transaction.date.toLocal()}'),
+        title: Text(transaction.type),
+        subtitle: Text(transaction.date.toLocal().toString()),
         trailing: Text(
           '$sign${transaction.amount.toStringAsFixed(2)} €',
           style: TextStyle(color: color, fontWeight: FontWeight.bold),

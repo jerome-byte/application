@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../controllers/auth_controller.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -26,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
     setState(() => _loading = true);
     final auth = Provider.of<AuthController>(context, listen: false);
     await auth.updateProfile(name: _nameController.text.trim());
+    if (!mounted) return;
     setState(() => _loading = false);
     ScaffoldMessenger.of(
       context,

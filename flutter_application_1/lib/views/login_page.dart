@@ -5,7 +5,7 @@ import 'home_page.dart';
 import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -23,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     final auth = Provider.of<AuthController>(context, listen: false);
     final ok = await auth.login(_email.text.trim(), _password.text);
     setState(() => _loading = false);
+    if (!mounted) return;
     if (ok) {
       Navigator.of(
         context,
