@@ -23,8 +23,14 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeController>(
         builder: (context, themeCtrl, _) => MaterialApp(
           title: 'Wallet Manager',
-          theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
-          darkTheme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.light,
+          ),
+          darkTheme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.dark,
+          ),
           themeMode: themeCtrl.isDark ? ThemeMode.dark : ThemeMode.light,
           home: const LoginPage(),
         ),

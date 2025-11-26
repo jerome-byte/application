@@ -27,7 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
     final auth = Provider.of<AuthController>(context, listen: false);
     await auth.updateProfile(name: _nameController.text.trim());
     setState(() => _loading = false);
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Profil mis à jour')));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Profil mis à jour')));
   }
 
   @override
@@ -42,7 +44,15 @@ class _ProfilePageState extends State<ProfilePage> {
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  CircleAvatar(radius: 44, child: Text(user.name.isNotEmpty ? user.name.substring(0, 1).toUpperCase() : '?', style: const TextStyle(fontSize: 28))),
+                  CircleAvatar(
+                    radius: 44,
+                    child: Text(
+                      user.name.isNotEmpty
+                          ? user.name.substring(0, 1).toUpperCase()
+                          : '?',
+                      style: const TextStyle(fontSize: 28),
+                    ),
+                  ),
                   const SizedBox(height: 12),
                   Text(user.email, style: const TextStyle(color: Colors.grey)),
                   const SizedBox(height: 20),
@@ -53,16 +63,33 @@ class _ProfilePageState extends State<ProfilePage> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            TextFormField(controller: _nameController, decoration: const InputDecoration(labelText: 'Nom'), validator: (v) => (v != null && v.trim().isNotEmpty) ? null : 'Obligatoire'),
+                            TextFormField(
+                              controller: _nameController,
+                              decoration: const InputDecoration(
+                                labelText: 'Nom',
+                              ),
+                              validator: (v) =>
+                                  (v != null && v.trim().isNotEmpty)
+                                  ? null
+                                  : 'Obligatoire',
+                            ),
                             const SizedBox(height: 16),
                             SizedBox(
-                                width: double.infinity,
-                                child: _loading ? const Center(child: CircularProgressIndicator()) : ElevatedButton(onPressed: _save, child: const Text('Enregistrer'))),
+                              width: double.infinity,
+                              child: _loading
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : ElevatedButton(
+                                      onPressed: _save,
+                                      child: const Text('Enregistrer'),
+                                    ),
+                            ),
                           ],
                         ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),

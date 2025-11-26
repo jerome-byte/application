@@ -18,14 +18,30 @@ class WalletController extends ChangeNotifier {
   void deposit(double amount) {
     if (amount <= 0) return;
     _balance += amount;
-    _transactions.insert(0, TransactionModel(id: DateTime.now().millisecondsSinceEpoch.toString(), type: 'Deposit', amount: amount, date: DateTime.now()));
+    _transactions.insert(
+      0,
+      TransactionModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        type: 'Deposit',
+        amount: amount,
+        date: DateTime.now(),
+      ),
+    );
     notifyListeners();
   }
 
   bool withdraw(double amount) {
     if (amount <= 0 || amount > _balance) return false;
     _balance -= amount;
-    _transactions.insert(0, TransactionModel(id: DateTime.now().millisecondsSinceEpoch.toString(), type: 'Withdrawal', amount: amount, date: DateTime.now()));
+    _transactions.insert(
+      0,
+      TransactionModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        type: 'Withdrawal',
+        amount: amount,
+        date: DateTime.now(),
+      ),
+    );
     notifyListeners();
     return true;
   }

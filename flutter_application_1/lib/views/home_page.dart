@@ -30,10 +30,21 @@ class _MainScreenState extends State<MainScreen> {
                 const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Align(alignment: Alignment.centerLeft, child: const Text('Dernières transactions', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: const Text(
+                      'Dernières transactions',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 8),
-                ...wallet.latestThree.map((t) => TransactionCard(transaction: t)),
+                ...wallet.latestThree.map(
+                  (t) => TransactionCard(transaction: t),
+                ),
                 const SizedBox(height: 80),
               ],
             ),
@@ -47,8 +58,14 @@ class _MainScreenState extends State<MainScreen> {
         onTap: (i) => setState(() => _index = i),
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Accueil'),
-          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Transactions'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Paramètres'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Transactions',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Paramètres',
+          ),
         ],
       ),
     );

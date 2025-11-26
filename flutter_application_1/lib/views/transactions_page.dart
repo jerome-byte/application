@@ -13,7 +13,8 @@ class TransactionsPage extends StatelessWidget {
       appBar: AppBar(title: const Text('Transactions')),
       body: ListView.builder(
         itemCount: wallet.transactions.length,
-        itemBuilder: (ctx, i) => TransactionCard(transaction: wallet.transactions[i]),
+        itemBuilder: (ctx, i) =>
+            TransactionCard(transaction: wallet.transactions[i]),
       ),
     );
   }

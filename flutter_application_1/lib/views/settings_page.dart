@@ -20,10 +20,18 @@ class SettingsPage extends StatelessWidget {
         children: [
           Card(
             child: ListTile(
-              leading: CircleAvatar(child: Text(auth.user != null ? auth.user!.name.substring(0, 1).toUpperCase() : '?')),
+              leading: CircleAvatar(
+                child: Text(
+                  auth.user != null
+                      ? auth.user!.name.substring(0, 1).toUpperCase()
+                      : '?',
+                ),
+              ),
               title: Text(auth.user?.name ?? 'Invité'),
               subtitle: Text(auth.user?.email ?? 'Non connecté'),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ProfilePage())),
+              onTap: () => Navigator.of(
+                context,
+              ).push(MaterialPageRoute(builder: (_) => const ProfilePage())),
             ),
           ),
           const SizedBox(height: 8),
@@ -43,7 +51,10 @@ class SettingsPage extends StatelessWidget {
             title: const Text('Se déconnecter'),
             onTap: () {
               auth.logout();
-              Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => const LoginPage()), (route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (_) => const LoginPage()),
+                (route) => false,
+              );
             },
           ),
         ],

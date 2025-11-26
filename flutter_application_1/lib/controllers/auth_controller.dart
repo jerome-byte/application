@@ -57,7 +57,11 @@ class AuthController extends ChangeNotifier {
     await Future.delayed(const Duration(milliseconds: 400));
     final exists = _users.any((u) => u.email == email);
     if (exists) return false;
-    final newUser = UserModel(id: DateTime.now().millisecondsSinceEpoch.toString(), name: name, email: email);
+    final newUser = UserModel(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: name,
+      email: email,
+    );
     _users.add(newUser);
     _user = newUser;
     await _saveToPrefs();

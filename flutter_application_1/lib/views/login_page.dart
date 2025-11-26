@@ -24,9 +24,13 @@ class _LoginPageState extends State<LoginPage> {
     final ok = await auth.login(_email.text.trim(), _password.text);
     setState(() => _loading = false);
     if (ok) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
+      Navigator.of(
+        context,
+      ).pushReplacement(MaterialPageRoute(builder: (_) => const MainScreen()));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Échec de la connexion')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Échec de la connexion')));
     }
   }
 
@@ -43,19 +47,31 @@ class _LoginPageState extends State<LoginPage> {
               TextFormField(
                 controller: _email,
                 decoration: const InputDecoration(labelText: 'Email'),
-                validator: (v) => (v != null && v.contains('@')) ? null : 'Email invalide',
+                validator: (v) =>
+                    (v != null && v.contains('@')) ? null : 'Email invalide',
               ),
               const SizedBox(height: 12),
               TextFormField(
                 controller: _password,
                 decoration: const InputDecoration(labelText: 'Mot de passe'),
                 obscureText: true,
-                validator: (v) => (v != null && v.length >= 6) ? null : '6 caractères min',
+                validator: (v) =>
+                    (v != null && v.length >= 6) ? null : '6 caractères min',
               ),
               const SizedBox(height: 24),
-              _loading ? const CircularProgressIndicator() : ElevatedButton(onPressed: _submit, child: const Text('Se connecter')),
+              _loading
+                  ? const CircularProgressIndicator()
+                  : ElevatedButton(
+                      onPressed: _submit,
+                      child: const Text('Se connecter'),
+                    ),
               const SizedBox(height: 12),
-              TextButton(onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignupPage())), child: const Text('Créer un compte')),
+              TextButton(
+                onPressed: () => Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => const SignupPage())),
+                child: const Text('Créer un compte'),
+              ),
             ],
           ),
         ),

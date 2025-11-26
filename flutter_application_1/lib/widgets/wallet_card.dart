@@ -9,7 +9,8 @@ class WalletCard extends StatefulWidget {
   State<WalletCard> createState() => _WalletCardState();
 }
 
-class _WalletCardState extends State<WalletCard> with SingleTickerProviderStateMixin {
+class _WalletCardState extends State<WalletCard>
+    with SingleTickerProviderStateMixin {
   bool _pulsing = false;
 
   Future<void> _showAmountDialog(BuildContext context, bool isDeposit) async {
@@ -25,13 +26,17 @@ class _WalletCardState extends State<WalletCard> with SingleTickerProviderStateM
           decoration: const InputDecoration(hintText: 'Montant'),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(ctx).pop(), child: const Text('Annuler')),
           TextButton(
-              onPressed: () {
-                final value = double.tryParse(controller.text);
-                Navigator.of(ctx).pop(value);
-              },
-              child: const Text('OK'))
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Annuler'),
+          ),
+          TextButton(
+            onPressed: () {
+              final value = double.tryParse(controller.text);
+              Navigator.of(ctx).pop(value);
+            },
+            child: const Text('OK'),
+          ),
         ],
       ),
     );
@@ -39,11 +44,17 @@ class _WalletCardState extends State<WalletCard> with SingleTickerProviderStateM
       if (isDeposit) {
         wallet.deposit(result);
         _animatePulse();
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Dépôt effectué')));
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Dépôt effectué')));
       } else {
         final ok = wallet.withdraw(result);
         if (ok) _animatePulse();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(ok ? 'Retrait effectué' : 'Solde insuffisant')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(ok ? 'Retrait effectué' : 'Solde insuffisant'),
+          ),
+        );
       }
     }
   }
@@ -72,15 +83,22 @@ class _WalletCardState extends State<WalletCard> with SingleTickerProviderStateM
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text('Portefeuille', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              const Text(
+                'Portefeuille',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
               const SizedBox(height: 8),
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 300),
-                transitionBuilder: (child, animation) => ScaleTransition(scale: animation, child: child),
+                transitionBuilder: (child, animation) =>
+                    ScaleTransition(scale: animation, child: child),
                 child: Text(
                   '${wallet.balance.toStringAsFixed(2)} €',
                   key: ValueKey<double>(wallet.balance),
-                  style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               const SizedBox(height: 12),
@@ -102,7 +120,7 @@ class _WalletCardState extends State<WalletCard> with SingleTickerProviderStateM
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),
